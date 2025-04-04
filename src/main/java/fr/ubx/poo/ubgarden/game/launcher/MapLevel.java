@@ -2,8 +2,7 @@ package fr.ubx.poo.ubgarden.game.launcher;
 
 import fr.ubx.poo.ubgarden.game.Position;
 
-import static fr.ubx.poo.ubgarden.game.launcher.MapEntity.Gardener;
-import static fr.ubx.poo.ubgarden.game.launcher.MapEntity.Grass;
+import static fr.ubx.poo.ubgarden.game.launcher.MapEntity.*;
 
 public class MapLevel {
 

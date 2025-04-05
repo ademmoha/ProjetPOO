@@ -40,15 +40,18 @@ public class GameLauncher {
         return null;
     }
 
-    public Game load() {
+    public Game load() throws RuntimeException {
         Properties emptyConfig = new Properties();
         MapLevel mapLevel = new MapLevelDefaultStart();
         Position gardenerPosition = mapLevel.getGardenerPosition();
+        Position waspPosition = mapLevel.getwaspPosition();
         if (gardenerPosition == null)
             throw new RuntimeException("Gardener not found");
+        if (waspPosition == null)
+            throw new RuntimeException("wasp not found");
         Configuration configuration = getConfiguration(emptyConfig);
         World world = new World(1);
-        Game game = new Game(world, configuration, gardenerPosition);
+        Game game = new Game(world, configuration, gardenerPosition,waspPosition);
         Map level = new Level(game, 1, mapLevel);
         world.put(1, level);
         return game;

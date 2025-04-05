@@ -2,6 +2,7 @@ package fr.ubx.poo.ubgarden.game;
 
 import fr.ubx.poo.ubgarden.game.go.bonus.Carrots;
 import fr.ubx.poo.ubgarden.game.go.bonus.EnergyBoost;
+import fr.ubx.poo.ubgarden.game.go.bonus.Fletox;
 import fr.ubx.poo.ubgarden.game.go.bonus.PoisonedApple;
 import fr.ubx.poo.ubgarden.game.go.decor.*;
 import fr.ubx.poo.ubgarden.game.go.decor.ground.Grass;
@@ -33,8 +34,17 @@ public class Level implements Map {
                     case Grass:
                         decors.put(position, new Grass(position));
                         break;
+                    case Hedgehog:
+                        decors.put(position, new Hedgehog(position));
+                        break;
                     case DoorNextClosed:
                         decors.put(position, new DoorNextClosed(position));
+                        break;
+                    case DoorPrevOpened:
+                        decors.put(position, new DoorPrevOpened(position));
+                        break;
+                    case DoorNextOpened:
+                        decors.put(position, new DoorNextOpened(position));
                         break;
                     case Tree:
                         decors.put(position, new Tree(position));
@@ -63,8 +73,14 @@ public class Level implements Map {
                         decors.put(position, grass);
                         break;
                     }
-                    case Carrots: {
+                    case Fletox: {
                         Decor grass = new Grass(position);
+                        grass.setBonus(new Fletox(position, grass));
+                        decors.put(position, grass);
+                        break;
+                    }
+                    case Carrots: {
+                        Decor grass = new Land(position);
                         grass.setBonus(new Carrots(position, grass));
                         decors.put(position, grass);
                         break;

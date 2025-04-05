@@ -10,11 +10,12 @@ public enum MapEntity {
     Tree('T'),
 
     Gardener('P'),
+    Wasps('W'),
     Hedgehog('H'),
     DoorPrevOpened('<'),
     DoorNextOpened('>'),
     DoorNextClosed('D'),
-
+    Fletox('F'),
     NestWasp('n'),
     NestHornet('N');
 

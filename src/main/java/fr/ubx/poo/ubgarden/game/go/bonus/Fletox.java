@@ -1,0 +1,36 @@
+/*
+ * Copyright (c) 2020. Laurent Réveillère
+ */
+
+package fr.ubx.poo.ubgarden.game.go.bonus;
+
+import fr.ubx.poo.ubgarden.game.Position;
+import fr.ubx.poo.ubgarden.game.go.decor.Decor;
+import fr.ubx.poo.ubgarden.game.go.personage.Gardener;
+
+public class Fletox extends Bonus {
+
+    public Fletox(Position position, Decor decor) {
+        super(position, decor);
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,6 +1,7 @@
 package fr.ubx.poo.ubgarden.game;
 
 import fr.ubx.poo.ubgarden.game.go.personage.Gardener;
+import fr.ubx.poo.ubgarden.game.go.personage.Wasps;
 
 
 public class Game {
@@ -8,12 +9,15 @@ public class Game {
     private final Configuration configuration;
     private final World world;
     private final Gardener gardener;
+    private final Wasps wasps;
     private boolean switchLevelRequested = false;
     private int switchLevel;
-    public Game(World world, Configuration configuration, Position gardenerPosition) {
+    public Game(World world, Configuration configuration, Position gardenerPosition, Position waspposition) {
         this.configuration = configuration;
         this.world = world;
         gardener = new Gardener(this, gardenerPosition);
+        wasps = new Wasps(this,waspposition);
+
     }
 
     public Configuration configuration() {
@@ -22,6 +26,9 @@ public class Game {
 
     public Gardener getGardener() {
         return this.gardener;
+    }
+    public Wasps getWasps() {
+        return this.wasps;
     }
 
     public World world() {

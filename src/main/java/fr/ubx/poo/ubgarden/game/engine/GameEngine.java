@@ -7,10 +7,8 @@
     import fr.ubx.poo.ubgarden.game.Direction;
     import fr.ubx.poo.ubgarden.game.Game;
     import fr.ubx.poo.ubgarden.game.go.personage.Gardener;
-    import fr.ubx.poo.ubgarden.game.view.ImageResource;
-    import fr.ubx.poo.ubgarden.game.view.Sprite;
-    import fr.ubx.poo.ubgarden.game.view.SpriteFactory;
-    import fr.ubx.poo.ubgarden.game.view.SpriteGardener;
+    import fr.ubx.poo.ubgarden.game.go.personage.Wasps;
+    import fr.ubx.poo.ubgarden.game.view.*;
     import javafx.animation.AnimationTimer;
     import javafx.application.Platform;
     import javafx.scene.Group;
@@ -30,6 +28,7 @@
         private static AnimationTimer gameLoop;
         private final Game game;
         private final Gardener gardener;
+        private final Wasps wasps;
         private final List<Sprite> sprites = new LinkedList<>();
         private final Set<Sprite> cleanUpSprites = new HashSet<>();
 
@@ -46,6 +45,7 @@
             this.game = game;
             this.scene = scene;
             this.gardener = game.getGardener();
+            this.wasps = game.getWasps();
             initialize();
             buildAndSetGameLoop();
         }
@@ -84,6 +84,7 @@
             }
 
             sprites.add(new SpriteGardener(layer, gardener));
+            sprites.add(new SpriteWasp(layer,wasps ));
             resizeScene(sceneWidth, sceneHeight);
         }
 

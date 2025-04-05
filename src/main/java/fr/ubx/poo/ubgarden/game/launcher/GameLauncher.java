@@ -45,13 +45,16 @@ public class GameLauncher {
         MapLevel mapLevel = new MapLevelDefaultStart();
         Position gardenerPosition = mapLevel.getGardenerPosition();
         Position waspPosition = mapLevel.getwaspPosition();
+        Position hornetPosition = mapLevel.gethornetPosition();
         if (gardenerPosition == null)
             throw new RuntimeException("Gardener not found");
         if (waspPosition == null)
             throw new RuntimeException("wasp not found");
+        if (hornetPosition == null)
+            throw new RuntimeException("hornet not found");
         Configuration configuration = getConfiguration(emptyConfig);
         World world = new World(1);
-        Game game = new Game(world, configuration, gardenerPosition,waspPosition);
+        Game game = new Game(world, configuration, gardenerPosition,waspPosition,hornetPosition);
         Map level = new Level(game, 1, mapLevel);
         world.put(1, level);
         return game;

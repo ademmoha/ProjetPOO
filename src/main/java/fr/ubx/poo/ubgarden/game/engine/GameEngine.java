@@ -7,6 +7,7 @@
     import fr.ubx.poo.ubgarden.game.Direction;
     import fr.ubx.poo.ubgarden.game.Game;
     import fr.ubx.poo.ubgarden.game.go.personage.Gardener;
+    import fr.ubx.poo.ubgarden.game.go.personage.Hornets;
     import fr.ubx.poo.ubgarden.game.go.personage.Wasps;
     import fr.ubx.poo.ubgarden.game.view.*;
     import javafx.animation.AnimationTimer;
@@ -29,6 +30,7 @@
         private final Game game;
         private final Gardener gardener;
         private final Wasps wasps;
+        private final Hornets hornets;
         private final List<Sprite> sprites = new LinkedList<>();
         private final Set<Sprite> cleanUpSprites = new HashSet<>();
 
@@ -46,6 +48,8 @@
             this.scene = scene;
             this.gardener = game.getGardener();
             this.wasps = game.getWasps();
+            this.hornets = game.getHornets();
+
             initialize();
             buildAndSetGameLoop();
         }
@@ -85,6 +89,7 @@
 
             sprites.add(new SpriteGardener(layer, gardener));
             sprites.add(new SpriteWasp(layer,wasps ));
+            sprites.add(new SpriteHornet(layer,hornets ));
             resizeScene(sceneWidth, sceneHeight);
         }
 

@@ -1,6 +1,7 @@
 package fr.ubx.poo.ubgarden.game.go;
 
 import fr.ubx.poo.ubgarden.game.go.bonus.EnergyBoost;
+import fr.ubx.poo.ubgarden.game.go.bonus.Fletox;
 import fr.ubx.poo.ubgarden.game.go.decor.Hedgehog;
 import fr.ubx.poo.ubgarden.game.go.bonus.PoisonedApple;
 
@@ -18,5 +19,9 @@ public interface PickupVisitor {
 
     default void pickUp(PoisonedApple poisonedApple) {
     }
+
+    default void pickUp(Fletox fletox) {
+    }
+
 
 }

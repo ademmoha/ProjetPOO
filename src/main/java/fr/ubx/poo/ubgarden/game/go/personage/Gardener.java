@@ -130,10 +130,11 @@ public class Gardener extends GameObject implements Movable, PickupVisitor, Walk
         return nextPos;
     }
 
+    @Override
     public void update(long now) {
         long currentTime = System.currentTimeMillis();
 
-        // Mise à jour de la maladie
+        // Vérifie si le temps de maladie est écoulé → guéri
         if (diseaseLevel > 0 && currentTime >= diseaseEndTime) {
             diseaseLevel = 0;
         }
@@ -141,19 +142,23 @@ public class Gardener extends GameObject implements Movable, PickupVisitor, Walk
         if (moveRequested) {
             if (canMove(direction)) {
                 move(direction);
-                int energyLoss = diseaseLevel > 0 ? 2 : 1;
+                // Coût de déplacement : 1 de base + diseaseLevel (cumulatif)
+                int energyLoss = 1 + diseaseLevel;
                 energy = Math.max(0, energy - energyLoss);
                 lastMoveTime = currentTime;
             }
         } else {
+            // Récupération d’énergie si le joueur reste immobile
             long recoverDuration = game.configuration().energyRecoverDuration();
             if (currentTime - lastMoveTime >= recoverDuration) {
                 energy = Math.min(game.configuration().gardenerEnergy(), energy + 1);
                 lastMoveTime = currentTime;
             }
         }
+
         moveRequested = false;
     }
+
 
 
 

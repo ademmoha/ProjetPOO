@@ -13,12 +13,14 @@ import fr.ubx.poo.ubgarden.game.go.PickupVisitor;
 import fr.ubx.poo.ubgarden.game.go.WalkVisitor;
 import fr.ubx.poo.ubgarden.game.go.bonus.EnergyBoost;
 import fr.ubx.poo.ubgarden.game.go.decor.Decor;
+import fr.ubx.poo.ubgarden.game.go.decor.Hedgehog;
 
 public class Gardener extends GameObject implements Movable, PickupVisitor, WalkVisitor {
 
     private final int energy;
     private Direction direction;
     private boolean moveRequested = false;
+    private boolean hasPickUpHedgehog = false;
 
     public Gardener(Game game, Position position) {
 
@@ -34,6 +36,15 @@ public class Gardener extends GameObject implements Movable, PickupVisitor, Walk
 
     }
 
+    @Override
+    public void pickUp(Hedgehog hedgehog) {
+        System.out.println("gagné");
+        this.hasPickUpHedgehog = true;
+    }
+
+    public boolean isHasPickUpHedgehog() {
+        return hasPickUpHedgehog;
+    }
 
     public int getEnergy() {
         return this.energy;

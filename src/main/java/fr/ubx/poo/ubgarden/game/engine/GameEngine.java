@@ -173,6 +173,13 @@
                 gameLoop.stop();
                 showMessage("Perdu!", Color.RED);
             }
+
+            if (gardener.isHasPickUpHedgehog()) {
+                gameLoop.stop();
+                showMessage("Gagné!", Color.GREEN);
+            }
+
+
         }
 
         public void cleanupSprites() {

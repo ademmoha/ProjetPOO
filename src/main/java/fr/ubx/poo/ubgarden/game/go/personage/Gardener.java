@@ -7,6 +7,7 @@ package fr.ubx.poo.ubgarden.game.go.personage;
 import fr.ubx.poo.ubgarden.game.Direction;
 import fr.ubx.poo.ubgarden.game.Game;
 import fr.ubx.poo.ubgarden.game.Position;
+import fr.ubx.poo.ubgarden.game.Level;
 import fr.ubx.poo.ubgarden.game.go.GameObject;
 import fr.ubx.poo.ubgarden.game.go.Movable;
 import fr.ubx.poo.ubgarden.game.go.PickupVisitor;
@@ -70,7 +71,9 @@ public class Gardener extends GameObject implements Movable, PickupVisitor, Walk
     public void pickUp(Carrots carrots) {
         this.CarrotsCount +=1;
         carrots.remove();
+        System.out.println("Carottes : " + getCarrotsCount() + " / " + ((Level) game.world().getGrid()).getTotalCarrots());
         System.out.println("Carrots collected!"+getCarrotsCount());
+        game.checkIfAllCarrotsCollected();
     }
 
     public void pickUp(PoisonedApple poisonedApple) {

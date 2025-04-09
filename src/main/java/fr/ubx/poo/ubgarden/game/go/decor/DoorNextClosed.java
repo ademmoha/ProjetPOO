@@ -12,6 +12,7 @@ public class DoorNextClosed extends Decor {
         super(position);
     }
 
+
     @Override
     public boolean walkableBy(Gardener gardener) {
         return gardener.canWalkOn(this);

@@ -35,7 +35,7 @@ public final class SpriteFactory {
         if (gameObject instanceof DoorNextClosed)
             return new Sprite(layer, factory.get(DOOR_CLOSED), gameObject);
         if (gameObject instanceof DoorNextOpened)
-            return new Sprite(layer, factory.get(DOOR_CLOSED), gameObject);
+            return new Sprite(layer, factory.get(DOOR_OPENED), gameObject);
         if (gameObject instanceof DoorPrevOpened)
             return new Sprite(layer, factory.get(DOOR_OPENED), gameObject);
         if (gameObject instanceof EnergyBoost)

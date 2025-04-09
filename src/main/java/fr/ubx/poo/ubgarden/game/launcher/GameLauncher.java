@@ -44,20 +44,37 @@ public class GameLauncher {
 
     public Game load(File file) throws IOException {
 
-            List<String> lines = java.nio.file.Files.readAllLines(file.toPath());
+
+            System.out.println("Loading file: " + file.getAbsolutePath());
+
+            List<String> lines = java.nio.file.Files.readAllLines(file.toPath())
+                    .stream()
+                    .map(String::trim)
+                    .filter(s -> !s.isEmpty())
+                    .toList();
+
+
+
             int height = lines.size();
             int width = lines.get(0).length();
 
-            MapLevel mapLevel = new MapLevel(width, height);
 
-            for (int j = 0; j < height; j++) {
-                String line = lines.get(j);
-                for (int i = 0; i < width; i++) {
-                    char c = line.charAt(i);
-                    MapEntity entity = MapEntity.fromCode(c);
-                    mapLevel.set(i, j, entity);
+            for (String line : lines) {
+                if (line.length() != width) {
+                    throw new RuntimeException("Inconsistent line length in map file");
                 }
             }
+
+        MapLevel mapLevel = new MapLevel(width, height);
+
+        for (int j = 0; j < height; j++) {
+            String line = lines.get(j);
+            for (int i = 0; i < width; i++) {
+                char c = line.charAt(i);
+                MapEntity entity = MapEntity.fromCode(c);
+                mapLevel.set(i, j, entity);
+            }
+        }
 
             Properties emptyConfig = new Properties();
             Position gardenerPosition = mapLevel.getGardenerPosition();

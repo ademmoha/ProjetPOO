@@ -129,6 +129,7 @@
             // Check a collision between the gardener and a wasp or an hornet
         }
 
+
         private void processInput() {
             if (input.isExit()) {
                 gameLoop.stop();

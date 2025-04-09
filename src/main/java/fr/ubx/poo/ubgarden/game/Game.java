@@ -1,9 +1,13 @@
 package fr.ubx.poo.ubgarden.game;
 
+import fr.ubx.poo.ubgarden.game.go.decor.DoorPrevOpened;
 import fr.ubx.poo.ubgarden.game.go.personage.Gardener;
 import fr.ubx.poo.ubgarden.game.go.personage.Hornets;
 import fr.ubx.poo.ubgarden.game.go.personage.Wasps;
-
+import fr.ubx.poo.ubgarden.game.go.decor.Decor;
+import fr.ubx.poo.ubgarden.game.go.bonus.Carrots;
+import fr.ubx.poo.ubgarden.game.go.decor.DoorNextClosed;
+import fr.ubx.poo.ubgarden.game.go.decor.DoorNextOpened;
 
 public class Game {
 
@@ -51,6 +55,25 @@ public class Game {
 
     public void clearSwitchLevel() {
         switchLevelRequested = false;
+    }
+
+    public void checkIfAllCarrotsCollected() {
+        Map map = world().getGrid();
+        boolean anyCarrotLeft = map.values().stream().anyMatch(decor ->
+                decor.getBonus() instanceof Carrots
+        );
+        if (!anyCarrotLeft) {
+            for (Position pos : ((Level) map).getDecors().keySet()) {
+                Decor decor = map.get(pos);
+                if (decor instanceof DoorNextClosed) {
+                    decor.remove();
+                    ((Level) map).getDecors().put(pos, new DoorNextOpened(pos));
+
+                    System.out.println("Porte ouverte en " + pos);
+                }
+            }
+
+        }
     }
 
 }

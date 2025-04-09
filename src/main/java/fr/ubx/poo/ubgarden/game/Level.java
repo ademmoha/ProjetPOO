@@ -16,7 +16,7 @@ public class Level implements Map {
 
     private final int level;
     private final int width;
-
+    private int totalCarrots = 0;
     private final int height;
 
     private final java.util.Map<Position, Decor> decors = new HashMap<>();
@@ -83,6 +83,7 @@ public class Level implements Map {
                         Decor Land = new Land(position);
                         Land.setBonus(new Carrots(position, Land));
                         decors.put(position, Land);
+                        totalCarrots++;
                         break;
                     }
                     default:
@@ -107,6 +108,15 @@ public class Level implements Map {
 
     public Collection<Decor> values() {
         return decors.values();
+    }
+
+
+    public int getTotalCarrots() {
+        return totalCarrots;
+    }
+
+    public java.util.Map<Position, Decor> getDecors() {
+        return decors;
     }
 
 

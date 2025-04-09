@@ -11,6 +11,7 @@ import fr.ubx.poo.ubgarden.game.go.GameObject;
 import fr.ubx.poo.ubgarden.game.go.Movable;
 import fr.ubx.poo.ubgarden.game.go.PickupVisitor;
 import fr.ubx.poo.ubgarden.game.go.WalkVisitor;
+import fr.ubx.poo.ubgarden.game.go.bonus.Carrots;
 import fr.ubx.poo.ubgarden.game.go.bonus.EnergyBoost;
 import fr.ubx.poo.ubgarden.game.go.bonus.Fletox;
 import fr.ubx.poo.ubgarden.game.go.bonus.PoisonedApple;
@@ -26,6 +27,8 @@ public class Gardener extends GameObject implements Movable, PickupVisitor, Walk
     private long lastMoveTime = 0;
     private long diseaseStartTime = 0;
     private long diseaseEndTime = 0;
+    private long CarrotsCount = 0;
+
 
 
 
@@ -61,6 +64,13 @@ public class Gardener extends GameObject implements Movable, PickupVisitor, Walk
         this.insecticideCount +=1;
         fletox.remove();
         System.out.println("Energy boost collected!");
+    }
+
+    @Override
+    public void pickUp(Carrots carrots) {
+        this.CarrotsCount +=1;
+        carrots.remove();
+        System.out.println("Carrots collected!"+getCarrotsCount());
     }
 
     public void pickUp(PoisonedApple poisonedApple) {
@@ -124,6 +134,12 @@ public class Gardener extends GameObject implements Movable, PickupVisitor, Walk
     public Position move(Direction direction) {
         Position nextPos = direction.nextPosition(getPosition());
         Decor next = game.world().getGrid().get(nextPos);
+        if (next != null && next.getBonus() != null) {
+            GameObject bonus = next.getBonus();
+            if (bonus instanceof Carrots) {
+                pickUp((Carrots) bonus);
+            }
+        }
         setPosition(nextPos);
         if (next != null)
             next.pickUpBy(this); // <-- Ici on active l'interaction avec les bonus
@@ -185,7 +201,7 @@ public class Gardener extends GameObject implements Movable, PickupVisitor, Walk
         return insecticideCount;
     }
 
-
-
-
+    public long getCarrotsCount() {
+        return CarrotsCount;
+    }
 }

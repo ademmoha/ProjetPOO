@@ -10,8 +10,9 @@ public class Carrots extends Bonus {
         super(position, decor);
     }
 
+
     @Override
-    public void remove() {
-        super.remove();
+    public void pickUpBy(Gardener gardener) {
+        gardener.pickUp(this);
     }
 }

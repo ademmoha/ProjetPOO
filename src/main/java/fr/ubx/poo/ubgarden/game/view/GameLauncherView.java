@@ -15,6 +15,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Objects;
 
 public class GameLauncherView extends BorderPane {
@@ -57,8 +58,17 @@ public class GameLauncherView extends BorderPane {
         loadItem.setOnAction(e -> {
             File file = fileChooser.showOpenDialog(stage);
             if (file != null) {
-                // TODO
-                System.err.println("[TODO] Not implemented");
+                Game game = null;
+                try {
+                    game = GameLauncher.getInstance().load(file);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+                GameEngine engine = new GameEngine(game, stage.getScene());
+                this.setCenter(engine.getRoot());
+                engine.getRoot().requestFocus();
+                engine.start();
+                resizeStage();
             }
         });
 

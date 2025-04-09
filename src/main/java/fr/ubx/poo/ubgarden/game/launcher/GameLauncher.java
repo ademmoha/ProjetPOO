@@ -1,8 +1,14 @@
 package fr.ubx.poo.ubgarden.game.launcher;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
 import fr.ubx.poo.ubgarden.game.*;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Properties;
 
 public class GameLauncher {
@@ -36,9 +42,42 @@ public class GameLauncher {
         return new Configuration(gardenerEnergy, energyBoost, energyRecoverDuration, diseaseDuration, waspMoveFrequency, hornetMoveFrequency);
     }
 
-    public Game load(File file) {
-        return null;
+    public Game load(File file) throws IOException {
+
+            List<String> lines = java.nio.file.Files.readAllLines(file.toPath());
+            int height = lines.size();
+            int width = lines.get(0).length();
+
+            MapLevel mapLevel = new MapLevel(width, height);
+
+            for (int j = 0; j < height; j++) {
+                String line = lines.get(j);
+                for (int i = 0; i < width; i++) {
+                    char c = line.charAt(i);
+                    MapEntity entity = MapEntity.fromCode(c);
+                    mapLevel.set(i, j, entity);
+                }
+            }
+
+            Properties emptyConfig = new Properties();
+            Position gardenerPosition = mapLevel.getGardenerPosition();
+            Position waspPosition = mapLevel.getwaspPosition();
+            Position hornetPosition = mapLevel.gethornetPosition();
+            if (gardenerPosition == null)
+                throw new RuntimeException("Gardener not found");
+            if (waspPosition == null)
+                throw new RuntimeException("wasp not found");
+            if (hornetPosition == null)
+                throw new RuntimeException("hornet not found");
+            Configuration configuration = getConfiguration(emptyConfig);
+            World world = new World(1);
+            Game game = new Game(world, configuration, gardenerPosition,waspPosition,hornetPosition);
+            Map level = new Level(game, 1, mapLevel);
+            world.put(1, level);
+            return game;
     }
+
+
 
     public Game load() throws RuntimeException {
         Properties emptyConfig = new Properties();
